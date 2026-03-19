@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Michał Kajstura – DevOps Engineer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #1a2e4a;
+            --accent: #2e86de;
+            --accent-light: #d6eaff;
+            --text: #2c3e50;
+            --muted: #6b7a8d;
+            --sidebar-bg: #1a2e4a;
+            --sidebar-text: #e8f0fe;
+            --gold: #f5a623;
+            --star-filled: #f5a623;
+            --star-empty: rgba(255, 255, 255, 0.2);
+            --main-star-empty: #d0d8e4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #e9eef5;
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .resume {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            max-width: 960px;
+            width: 100%;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            background: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .photo-wrap {
+            display: flex;
+            justify-content: center;
+        }
+
+        .photo-wrap img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center top;
+            border: 4px solid var(--accent);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar-heading {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            margin-bottom: 4px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 12.5px;
+            color: rgba(232, 240, 254, 0.85);
+            line-height: 1.5;
+        }
+
+        .contact-item .icon {
+            font-size: 13px;
+            min-width: 18px;
+            text-align: center;
+            margin-top: 1px;
+        }
+
+        /* Stars */
+        .skill-item,
+        .lang-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+
+        .skill-label {
+            font-size: 12.5px;
+            color: rgba(232, 240, 254, 0.9);
+            font-weight: 500;
+        }
+
+        .stars {
+            display: flex;
+            gap: 3px;
+        }
+
+        .star {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--star-empty);
+        }
+
+        .star.filled {
+            background: var(--gold);
+            box-shadow: 0 0 6px rgba(245, 166, 35, 0.5);
+        }
+
+        /* Hobbies */
+        .hobbies-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .hobby-tag {
+            background: rgba(46, 134, 222, 0.18);
+            border: 1px solid rgba(46, 134, 222, 0.35);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 11.5px;
+            color: rgba(232, 240, 254, 0.85);
+        }
+
+        /* ── MAIN ── */
+        .main {
+            padding: 40px 36px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .header-block {
+            border-bottom: 2px solid var(--accent-light);
+            padding-bottom: 20px;
+        }
+
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            color: var(--primary);
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+        }
+
+        .title-badge {
+            display: inline-block;
+            margin-top: 8px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 20px;
+        }
+
+        .summary {
+            margin-top: 14px;
+            font-size: 13.5px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* Section */
+        .section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .section-title {
+            font-size: 11px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--accent-light);
+        }
+
+        /* Timeline entries */
+        .entry {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 0 16px;
+            position: relative;
+        }
+
+        .entry-date {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 500;
+            padding-top: 2px;
+            line-height: 1.5;
+            text-align: right;
+        }
+
+        .entry-body {
+            border-left: 2px solid var(--accent-light);
+            padding-left: 16px;
+            padding-bottom: 16px;
+            position: relative;
+        }
+
+        .entry-body::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .entry-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+
+        .entry-subtitle {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .entry-bullets {
+            margin-top: 8px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .entry-bullets li {
+            font-size: 12.5px;
+            color: var(--text);
+            padding-left: 14px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .entry-bullets li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 10px;
+            top: 3px;
+        }
+
+        /* Skills in main – compact grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px 20px;
+        }
+
+        .skill-row {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .skill-name {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .skill-bar-track {
+            height: 5px;
+            background: var(--main-star-empty);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #5ba4f5);
+            border-radius: 10px;
+            transition: width 0.8s ease;
+        }
+
+        /* Cert badge */
+        .cert-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .cert-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--accent-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .cert-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cert-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .cert-issuer {
+            font-size: 11.5px;
+            color: var(--muted);
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+
+            .resume {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="resume">
+
+        <!-- ═══════════════ SIDEBAR ═══════════════ -->
+        <aside class="sidebar">
+
+            <div class="photo-wrap">
+                <img src="mika.jpg" alt="Michał Kajstura" />
+            </div>
+
+            <!-- Contact -->
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Contact</div>
+                <div class="contact-item"><span class="icon">✉️</span><span>michalkajstura@gmail.com</span></div>
+            </div>
+
+            <!-- Languages -->
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Languages</div>
+                <div class="lang-item">
+                    <div class="skill-label">Polish</div>
+                    <div class="stars">
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                    </div>
+                </div>
+                <div class="lang-item">
+                    <div class="skill-label">English</div>
+                    <div class="stars">
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Skills -->
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Technical Skills</div>
+                <div class="skill-item">
+                    <div class="skill-label">Python</div>
+                    <div class="stars">
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">Docker / Openshift</div>
+                    <div class="stars">
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">Microsoft Azure</div>
+                    <div class="stars">
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">Google Cloud Platform</div>
+                    <div class="stars">
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">Terraform</div>
+                    <div class="stars">
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-label">Generative AI &amp; LLMs</div>
+                    <div class="stars">
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Soft Skills</div>
+                <div class="skill-item">
+                    <div class="skill-label">Complex Problem Solving</div>
+                    <div class="stars">
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-label">Data Analysis</div>
+                    <div class="stars">
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star filled"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hobbies -->
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Hobbies</div>
+                <div class="hobbies-list">
+                    <span class="hobby-tag">🧘 Yoga</span>
+                    <span class="hobby-tag">🏃 Running</span>
+                    <span class="hobby-tag">🧗 Climbing</span>
+                    <span class="hobby-tag">🏔️ Hiking</span>
+                    <span class="hobby-tag">🏂 Snowboarding</span>
+                    <span class="hobby-tag">🚴 Biking</span>
+                    <span class="hobby-tag">🤖 Gen AI</span>
+                    <span class="hobby-tag">📚 Philosophy</span>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- ═══════════════ MAIN ═══════════════ -->
+        <main class="main">
+
+            <!-- Header -->
+            <div class="header-block">
+                <div class="name">Michał Kajstura</div>
+                <span class="title-badge">DevOps Engineer</span>
+                <p class="summary">
+                    Experienced DevOps engineer with a strong background in Python programming, cloud infrastructure,
+                    analysis and automation.
+                    Actively developing expertise in <strong>Generative AI</strong> — building personal AI projects
+                    including a running coach app and an <strong>avalanche risk prediction portal</strong> for GOPR
+                    (Mountain Rescue Service) in collaboration with the Silesian University of Technology.
+                    Detail-oriented, committed to delivering high-quality results, and keen on continuous
+                    self-development. When unplugged: running, yoga, mountains, and philosophy.
+                </p>
+            </div>
+
+            <!-- Work Experience -->
+            <section class="section">
+                <div class="section-title">Work Experience</div>
+
+                <div class="entry">
+                    <div class="entry-date">Jan 2022<br />Present</div>
+                    <div class="entry-body">
+                        <div class="entry-title">Senior DevOps Expert</div>
+                        <div class="entry-subtitle">ING Hubs Poland · Katowice</div>
+                        <ul class="entry-bullets">
+                            <li>Google Cloud application maintenance and cost monitoring &amp; optimization</li>
+                            <li>Docker-based services on OpenShift maintenance</li>
+                            <li>CI/CD pipeline implementation and maintenance</li>
+                            <li>Infrastructure as Code with Terraform</li>
+                            <li>Developing personal AI Copilot skills and workflow automations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-date">Nov 2020<br />Dec 2021</div>
+                    <div class="entry-body">
+                        <div class="entry-title">Senior DevOps Expert</div>
+                        <div class="entry-subtitle">ING Tech Poland · Katowice</div>
+                        <ul class="entry-bullets">
+                            <li>Web application and Apache Atlas maintenance</li>
+                            <li>Deployment pipeline build and maintenance</li>
+                            <li>Python connector development</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-date">Mar 2019<br />Oct 2020</div>
+                    <div class="entry-body">
+                        <div class="entry-title">Senior DevOps Expert</div>
+                        <div class="entry-subtitle">ING Tech Poland · Katowice</div>
+                        <ul class="entry-bullets">
+                            <li>Data consistency monitoring development (Flask, Python)</li>
+                            <li>Reports automation using Python with MSSQL, Elasticsearch, and flat file sources</li>
+                            <li>High management reporting and task automation with Python</li>
+                            <li>Participation in designing and testing of ING global reporting platform</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-date">Sep 2015<br />Feb 2019</div>
+                    <div class="entry-body">
+                        <div class="entry-title">DevOps Expert</div>
+                        <div class="entry-subtitle">ING Tech Poland · Katowice</div>
+                        <ul class="entry-bullets">
+                            <li>High management reporting</li>
+                            <li>Time-consuming task automation using Python</li>
+                            <li>Small reporting application development (Flask, Python)</li>
+                            <li>Reporting platform support for users</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-date">Aug 2013<br />Aug 2015</div>
+                    <div class="entry-body">
+                        <div class="entry-title">Team Manager</div>
+                        <div class="entry-subtitle">ING Tech Poland · Katowice</div>
+                        <ul class="entry-bullets">
+                            <li>Managed a team responsible for a global security process (Technical State Compliance
+                                Monitoring)</li>
+                            <li>Coordination of 6 analysts</li>
+                            <li>High management reporting</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Personal Projects -->
+            <section class="section">
+                <div class="section-title">Personal Projects &amp; AI Focus</div>
+
+                <div class="entry">
+                    <div class="entry-date">2023<br />Present</div>
+                    <div class="entry-body">
+                        <div class="entry-title">Avalanche Risk Prediction Portal</div>
+                        <div class="entry-subtitle">Full-Stack Development · Silesian University of Technology &amp;
+                            GOPR (Mountain Rescue Service)</div>
+                        <ul class="entry-bullets">
+                            <li>Full-stack web application built to support avalanche risk assessment for mountain
+                                rescue operations</li>
+                            <li>Machine Learning models for avalanche risk prediction integrated into a production-grade
+                                service</li>
+                            <li>LLM integration for natural-language risk summaries and decision support</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-date">2024<br />Present</div>
+                    <div class="entry-body">
+                        <div class="entry-title">AI Running Coach App</div>
+                        <div class="entry-subtitle">Personal Project</div>
+                        <ul class="entry-bullets">
+                            <li>Developing an AI-powered running coach leveraging Generative AI and LLMs</li>
+                            <li>Building custom AI Copilot skills and automation workflows</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Education -->
+            <section class="section">
+                <div class="section-title">Education</div>
+
+                <div class="entry">
+                    <div class="entry-date">2003 – 2008</div>
+                    <div class="entry-body">
+                        <div class="entry-title">Master's Degree — Statistics &amp; Econometrics</div>
+                        <div class="entry-subtitle">The Karol Adamiecki University of Economics, Katowice</div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Certifications & Courses -->
+            <section class="section">
+                <div class="section-title">Certifications &amp; Courses</div>
+
+                <div style="display:flex; flex-direction:column; gap:10px;">
+
+                    <div class="cert-item">
+                        <div class="cert-icon">🔐</div>
+                        <div class="cert-info">
+                            <span class="cert-name">CISSP — ID #471461</span>
+                            <span class="cert-issuer">(ISC)² · Dec 2015 – Present</span>
+                        </div>
+                    </div>
+
+                    <div class="cert-item">
+                        <div class="cert-icon">🛡️</div>
+                        <div class="cert-info">
+                            <span class="cert-name">CISM — ID 1949394</span>
+                            <span class="cert-issuer">ISACA · Dec 2019 – Present</span>
+                        </div>
+                    </div>
+
+                    <div class="cert-item">
+                        <div class="cert-icon">🤖</div>
+                        <div class="cert-info">
+                            <span class="cert-name">Devs AI — 5-Week Training, Certificate of Completion</span>
+                            <span class="cert-issuer">2025</span>
+                        </div>
+                    </div>
+
+                    <div class="cert-item">
+                        <div class="cert-icon">🧠</div>
+                        <div class="cert-info">
+                            <span class="cert-name">Machine Learning</span>
+                            <span class="cert-issuer">Bottega IT Minds · September 2019</span>
+                        </div>
+                    </div>
+
+                    <div class="cert-item">
+                        <div class="cert-icon">🧘</div>
+                        <div class="cert-info">
+                            <span class="cert-name">Yoga TTC 200H</span>
+                            <span class="cert-issuer">Ashtanga Yoga Studio Warszawa · Oct–Dec 2020</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>
